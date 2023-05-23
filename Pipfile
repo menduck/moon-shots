@@ -17,6 +17,8 @@ django-storages = "*"
 pillow = "*"
 django-imagekit = "*"
 django-debug-toolbar = "*"
+channels = "*"
+channels-redis = "*"
 
 [dev-packages]
 
