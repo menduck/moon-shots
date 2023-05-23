@@ -16,6 +16,7 @@ mysqlclient = "*"
 django-storages = "*"
 pillow = "*"
 django-imagekit = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 
