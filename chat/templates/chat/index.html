@@ -8,7 +8,7 @@
   <script>
     document.querySelector('#room-name-input').focus();
     document.querySelector('#room-name-input').onkeyup = function(e) {
-        if (e.keyCode === 13) {  // enter, return
+        if (e.keyCode === 13) {  // 13은 엔터의 키코드
             document.querySelector('#room-name-submit').click();
         }
     };
