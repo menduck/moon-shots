@@ -19,6 +19,8 @@ django-imagekit = "*"
 django-debug-toolbar = "*"
 channels = "*"
 channels-redis = "*"
+daphne = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
