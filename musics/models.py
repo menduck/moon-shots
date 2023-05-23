@@ -4,11 +4,12 @@ from django.db import models
 class Room(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
-    playlist = models.ManyToManyField('playlist', related_name='rooms')
+    playlists = models.ManyToManyField('playlist', related_name='rooms')
 
 
 class Playlist(models.Model):
     title = models.CharField(max_length=200)
+    room = models.ForeignKey(Room, null=True, on_delete=models.CASCADE)
     video_key = models.CharField(max_length=12)
     # 플레이리스트를 큐 형식으로 관리하기 위해 순서 부여하는 필드
     queue_order = models.IntegerField(default=0)
