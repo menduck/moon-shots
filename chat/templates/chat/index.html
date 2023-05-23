@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  What chat room would you like to enter?<br/>
-  <input id="room-name-input" type="text" size="100"/><br/>
-  <input id="room-name-submit" type="button" value="Enter"/>
+What chat room would you like to enter?<br>
+<input id="room-name-input" type="text" size="100"><br>
+<input id="room-name-submit" type="button" value="Enter">
 
-  <script>
+<script>
     document.querySelector('#room-name-input').focus();
     document.querySelector('#room-name-input').onkeyup = function(e) {
-        if (e.keyCode === 13) {  // 13은 엔터의 키코드
+        if (e.keyCode === 13) {  // enter, return
             document.querySelector('#room-name-submit').click();
         }
     };
@@ -17,5 +17,5 @@
         var roomName = document.querySelector('#room-name-input').value;
         window.location.pathname = '/chat/' + roomName + '/';
     };
-  </script>
+</script>
 {% endblock content %}
