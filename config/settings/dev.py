@@ -20,3 +20,13 @@ if 'MYSQL_PASSWORD' in os.environ and 'MYSQL_DB_NAME' in os.environ:
             'PORT': '3306',
         }
     }
+
+
+# Django debug toolbar 관련
+INSTALLED_APPS += ['debug_toolbar']
+
+MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
