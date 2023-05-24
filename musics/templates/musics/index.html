@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>index</h1>
+  <a href="{% url 'musics:create' %}">글 작성</a>
+  <hr>
+  {% for room in rooms %}
+    <p>{{room.title}}</p>
+    <hr>
+  {% endfor %}
+{% endblock content %}

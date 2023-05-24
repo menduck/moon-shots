@@ -23,6 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 INSTALLED_APPS = [
     'accounts',
+    'musics',
     'django_extensions',
     'storages',
     'django.contrib.admin',
