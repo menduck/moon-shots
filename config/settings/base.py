@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'daphne',
     'accounts',
     'chat',
@@ -139,3 +140,6 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+# 비동기 함수에서의 ORM 작성
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = 'true'

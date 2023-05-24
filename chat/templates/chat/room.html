@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<textarea id="chat-log" cols="100" rows="20"></textarea><br>
-<input id="chat-message-input" type="text" size="100"><br>
-<input id="chat-message-submit" type="button" value="Send">
+<div class="container">
+    <div id="chat-log"></div><br>
+    <input id="chat-message-input" type="text" size="100"><br>
+    <input id="chat-message-submit" type="button" value="Send">
+</div>
 {{ room_name|json_script:"room-name" }}
 <script>
-    const roomName = JSON.parse(document.getElementById('room-name').textContent);
+    const roomName = JSON.parse(document.getElementById('room-name').textContent)
 
     const chatSocket = new WebSocket(
         'ws://'
@@ -14,31 +16,56 @@
         + '/ws/chat/'
         + roomName
         + '/'
-    );
+    )
 
+    // 웹 소켓을 통해 메시지가 수신되었을 경우
     chatSocket.onmessage = function(e) {
-        const data = JSON.parse(e.data);
-        document.querySelector('#chat-log').value += (data.message + '\n');
-    };
+        // consumers
+        const data = JSON.parse(e.data)
+        console.log(data)
+        //document.querySelector('#chat-log').value += (`${data.user}: ${data.message}` + '\n')
 
+        // 새로운 메시지를 위한 요소 생성
+        const messageContainer = document.createElement('div');
+        const userElement = document.createElement('div');
+        const contentElement = document.createElement('div');
+
+        // 요소에 클래스 추가
+        messageContainer.classList.add('message-container', 'd-flex');
+        userElement.classList.add('user');
+        contentElement.classList.add('content');
+
+        // 메시지 내용 설정
+        userElement.textContent = data.user + '\u00a0:\u00a0';
+        contentElement.textContent = data.message;
+
+        // 요소를 채팅 로그에 추가
+        messageContainer.appendChild(userElement);
+        messageContainer.appendChild(contentElement);
+
+        const chatLog = document.getElementById('chat-log')
+        chatLog.appendChild(messageContainer);
+    }
+
+    // 웹 소켓 연결이 예기치 않게 닫히는 경우
     chatSocket.onclose = function(e) {
-        console.error('Chat socket closed unexpectedly');
-    };
+        console.error('Chat socket closed unexpectedly')
+    }
 
-    document.querySelector('#chat-message-input').focus();
+    document.querySelector('#chat-message-input').focus()
     document.querySelector('#chat-message-input').onkeyup = function(e) {
         if (e.keyCode === 13) {  // enter, return
-            document.querySelector('#chat-message-submit').click();
+            document.querySelector('#chat-message-submit').click()
         }
-    };
+    }
 
     document.querySelector('#chat-message-submit').onclick = function(e) {
-        const messageInputDom = document.querySelector('#chat-message-input');
-        const message = messageInputDom.value;
+        const messageInputDom = document.querySelector('#chat-message-input')
+        const message = messageInputDom.value
         chatSocket.send(JSON.stringify({
             'message': message
-        }));
-        messageInputDom.value = '';
-    };
+        }))
+        messageInputDom.value = ''
+    }
 </script>
 {% endblock content %}
