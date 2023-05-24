@@ -22,7 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'daphne',
     'accounts',
+    'chat',
     'musics',
     'django_extensions',
     'storages',
@@ -126,3 +129,17 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+# Channels
+ASGI_APPLICATION = "config.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
+
+# 비동기 함수에서의 ORM 작성
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = 'true'
